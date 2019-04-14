@@ -1,0 +1,47 @@
+import React, { Component } from 'react';
+
+import TwitterLogo from '../../twitter.svg';
+import './styles.css';
+
+export default class Login extends Component {
+
+    constructor() {
+        super();
+
+        this.state = {
+            username: '',
+        };
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+
+        const { username } = this.state;
+
+        if (!username.length) return;
+
+        localStorage.setItem('@GoTwitter:username', username);
+
+        this.props.history.push('/');
+    };
+
+    handleInputChange = e => {
+        this.setState({ username: e.target.value });
+    };
+
+    render() {
+        return (
+            <div className="login-wrapper">
+                <img src={TwitterLogo} alt="GoTwitter" />
+                <form onSubmit={this.handleSubmit}>
+                    <input
+                        value={this.state.username}
+                        onChange={this.handleInputChange}
+                        placeholder="Nome de usuário"
+                    />
+                    <button type="submit">Entrar</button>
+                </form>
+            </div>
+        );
+    }
+}
